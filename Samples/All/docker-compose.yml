@@ -1,0 +1,72 @@
+version: '3.4'
+services:
+  monitor:
+    image: rahnemann/windows-hosts-writer:1.3-nanoserver-1809
+    volumes:
+      - C:\windows\system32\drivers\etc:C:\driversetc
+      - source: '\\.\pipe\docker_engine'
+        target: '\\.\pipe\docker_engine'
+        type: npipe
+        
+  umbracodemo-starterkit:
+    image: antuangiro/umbraco-demo-starterkit:${UMBRACO_VERSION}
+    environment:
+      HOST_HEADER: ${HOST_STARTERKIT}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.umbraco-demo-891-starterkit-web.rule=Host(`${HOST_STARTERKIT}`)"
+      - "traefik.http.routers.umbraco-demo-891-starterkit-web.entrypoints=web"
+      - "traefik.docker.network=demo"
+    networks:
+      demo:
+        aliases:
+          - ${HOST_STARTERKIT}
+        
+  umbracodemo-vendr:
+    image: antuangiro/umbraco-demo-vendr:${UMBRACO_VERSION}-vendr-${VENDR_VERSION}
+    environment:
+      HOST_HEADER: ${HOST_VENDR}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.umbraco-demo-891-starterkit-web.rule=Host(`${HOST_VENDR}`)"
+      - "traefik.http.routers.umbraco-demo-891-starterkit-web.entrypoints=web"
+      - "traefik.docker.network=demo"
+    networks:
+      demo:
+        aliases:
+          - ${HOST_VENDR}
+        
+  umbracodemo-marketingsuite-db:
+     image: antuangiro/umbraco-demo-marketingsuite-db:${UMBRACO_VERSION}-marketingsuite-${MARKETINGSUITE_VERSION}
+     container_name: umbracodemo-marketingsuite-db
+     ports:
+       - "1433:1433"
+     environment:
+       SA_PASSWORD: "Password_01"
+       ACCEPT_EULA: "Y"
+     networks:
+       - demo
+        
+  umbracodemo-marketingsuite-web:
+    image: antuangiro/umbraco-demo-marketingsuite:${UMBRACO_VERSION}-marketingsuite-${MARKETINGSUITE_VERSION}
+    environment:
+      HOST_HEADER: ${HOST_MARKETINGSUITE}
+    volumes:
+      - .\uMarketingSuiteConfig:C:\inetpub\wwwroot\config\uMarketingSuite
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.umbraco-demo-891-marketingsuite-web.rule=Host(`${HOST_MARKETINGSUITE}`)"
+      - "traefik.http.routers.umbraco-demo-891-marketingsuite-web.entrypoints=web"
+      - "traefik.docker.network=demo"
+    depends_on:
+      - umbracodemo-marketingsuite-db
+    networks:
+      demo:
+        aliases:
+          - ${HOST_MARKETINGSUITE}
+
+networks:
+  demo:
+    external:
+      name: nat
+

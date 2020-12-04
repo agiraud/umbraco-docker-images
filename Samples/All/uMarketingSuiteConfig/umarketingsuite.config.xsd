@@ -1,0 +1,104 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema elementFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:element name="Configuration" nillable="true" type="MainConfiguration" />
+  <xs:complexType name="MainConfiguration">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="Settings" type="SettingsConfiguration" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Analytics" type="AnalyticsConfiguration" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ABTesting" type="ABTestingConfiguration" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="SettingsConfiguration">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="DatabaseConnectionStringName" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="Enabled" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="AnalyticsConfiguration">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="VisitorCookie" type="AnalyticsVisitorCookieConfiguration" />
+      <xs:element minOccurs="1" maxOccurs="1" name="DataCollection" type="AnalyticsDataCollectionConfiguration" />
+      <xs:element minOccurs="1" maxOccurs="1" name="DataStorage" type="AnalyticsDataStorageConfiguration" />
+      <xs:element minOccurs="1" maxOccurs="1" name="DataProcessing" type="AnalyticsDataProcessingConfiguration" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AnalyticsVisitorCookieConfiguration">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="ExpirationInDays" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="CookieName" type="xs:string" />
+      <xs:element minOccurs="1" maxOccurs="1" name="IncludeSubdomains" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AnalyticsDataCollectionConfiguration">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="AnonymizeIPAddress" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="ServersideTrackingEnabled" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="FlushRateInRecords" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="FlushIntervalInSeconds" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="InternalSiteSearch" type="InternalSiteSearchConfiguration" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AnalyticsDataStorageConfiguration">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="DeleteRawDataAfterDays" type="xs:int" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="AnalyticsDataProcessingConfiguration">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="IntervalInRecords" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="IntervalInSeconds" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="SessionLengthInMinutes" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="AnonymizeDataAfterDays" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="DeleteDataAfterDays" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="IsProcessingServer" type="xs:boolean" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ABTestingConfiguration">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="MinimumPercentageForAdviceWithPredictedRuntime" type="xs:int" />
+      <xs:element minOccurs="1" maxOccurs="1" name="MinumumPercentageMacroGoalWarning" type="xs:int" />
+      <xs:element name="ShareDataLevel" type="shareDataLevel"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="InternalSiteSearchConfiguration">
+    <xs:sequence>
+      <xs:element minOccurs="1" maxOccurs="1" name="AutomaticSearchTracking" type="xs:boolean" />
+      <xs:element minOccurs="1" maxOccurs="1" name="SearchTermParameters" type="SearchTermParametersConfiguration" />
+      <xs:element minOccurs="1" maxOccurs="1" name="SearchBoxParameters" type="SearchBoxParametersConfiguration" />
+      <xs:element minOccurs="1" maxOccurs="1" name="CategoryParameters" type="CategoryParametersConfiguration" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SearchTermParametersConfiguration">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SearchTermParameter" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SearchBoxParametersConfiguration">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="SearchBoxParameter" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CategoryParametersConfiguration">
+    <xs:sequence>
+      <xs:element minOccurs="0" maxOccurs="unbounded" name="CategoryParameter" type="xs:string" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="shareDataLevel">
+    <xs:restriction base = "xs:string">
+      <xs:enumeration value = "None"/>
+      <xs:enumeration value = "Minimum"/>
+      <xs:enumeration value = "Medium"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>
