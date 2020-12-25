@@ -9,7 +9,7 @@ services:
         type: npipe
         
   umbraco-demo-starterkit:
-    image: antuangiro/umbraco-demo-starterkit:${UMBRACO_VERSION}
+    image: antuangiro/umbraco-demo-starterkit:${UMBRACO_VERSION}-windowsservercore-${WINDOWSSERVERCORE_VERSION}
     environment:
       HOST_HEADER: ${HOST}
     labels:

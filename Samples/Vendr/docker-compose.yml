@@ -9,7 +9,7 @@ services:
         type: npipe
         
   umbraco-demo-vendr:
-    image: antuangiro/umbraco-demo-vendr:${UMBRACO_VERSION}-vendr-${VENDR_VERSION}
+    image: antuangiro/umbraco-demo-vendr:${UMBRACO_VERSION}-vendr-${VENDR_VERSION}-windowsservercore-${WINDOWSSERVERCORE_VERSION}
     environment:
       HOST_HEADER: ${HOST}
     labels:

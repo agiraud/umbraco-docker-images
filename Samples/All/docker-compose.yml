@@ -9,7 +9,7 @@ services:
         type: npipe
         
   umbracodemo-starterkit:
-    image: antuangiro/umbraco-demo-starterkit:${UMBRACO_VERSION}
+    image: antuangiro/umbraco-demo-starterkit:${UMBRACO_VERSION}-windowsservercore-${WINDOWSSERVERCORE_VERSION}
     environment:
       HOST_HEADER: ${HOST_STARTERKIT}
     labels:
@@ -23,7 +23,7 @@ services:
           - ${HOST_STARTERKIT}
         
   umbracodemo-vendr:
-    image: antuangiro/umbraco-demo-vendr:${UMBRACO_VERSION}-vendr-${VENDR_VERSION}
+    image: antuangiro/umbraco-demo-vendr:${UMBRACO_VERSION}-vendr-${VENDR_VERSION}-windowsservercore-${WINDOWSSERVERCORE_VERSION}
     environment:
       HOST_HEADER: ${HOST_VENDR}
     labels:
@@ -48,7 +48,7 @@ services:
        - demo
         
   umbracodemo-marketingsuite-web:
-    image: antuangiro/umbraco-demo-marketingsuite:${UMBRACO_VERSION}-marketingsuite-${MARKETINGSUITE_VERSION}
+    image: antuangiro/umbraco-demo-marketingsuite:${UMBRACO_VERSION}-marketingsuite-${MARKETINGSUITE_VERSION}-windowsservercore-${WINDOWSSERVERCORE_VERSION}
     environment:
       HOST_HEADER: ${HOST_MARKETINGSUITE}
     volumes:

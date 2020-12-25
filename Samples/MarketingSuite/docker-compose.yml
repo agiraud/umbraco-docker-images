@@ -20,7 +20,7 @@ services:
        - demo
         
   umbraco-demo-marketingsuite-web:
-    image: antuangiro/umbraco-demo-marketingsuite:${UMBRACO_VERSION}-marketingsuite-${MARKETINGSUITE_VERSION}
+    image: antuangiro/umbraco-demo-marketingsuite:${UMBRACO_VERSION}-marketingsuite-${MARKETINGSUITE_VERSION}-windowsservercore-${WINDOWSSERVERCORE_VERSION}
     environment:
       HOST_HEADER: ${HOST}
     volumes:
